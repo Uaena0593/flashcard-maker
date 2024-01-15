@@ -8,32 +8,31 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("")
   const history = useNavigate()
 
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:3001/signup",{
-        username, password
-      })
-      .then(res=>{
-        if(res.data == "exist"){
-          alert("User already exists")
-        }
-        else if (password != confirmPassword) {
-          alert("Passwords do not match")
-        }
-        else if(res.data=="notexist") {
-            history("/flashcards", { state:{id:username}})
-        }
-    })
-    .catch(e=>{
-      alert('wrong details')
-      console.log(e);
-    })
 
-    } catch {
-      console.log(e)
+    try {
+      const response = await axios.post("http://localhost:3001/signup", {
+        username,
+        password,
+      });
+
+      if (response.data === "exist") {
+        alert("User already exists");
+      } else if (password !== confirmPassword) {
+        alert("Passwords do not match");
+      } else if (response.data === "notexist") {
+        alert("User created successfully"); // You can customize this message
+        localStorage.setItem('authenticated', 'authorized');
+        history("/flashcards", { state: { id: username } });
+      } else {
+        alert("Error occurred");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("An error occurred");
     }
-  }
+  };
   return (
     <>
       <section className="bg-gray-200 min-h-screen">
@@ -48,13 +47,13 @@ const SignUp = () => {
             />
             <input
               className="bg-gray-200 mb-3 pl-4 h-8 w-75 border-transparent rounded-xl focus:outline-none"
-              type="text"
+              type="password"
               placeholder="password. . ."
               onChange={(e) => setPassword(e.target.value)}
             />
             <input
               className="bg-gray-200 mb-3 pl-4 h-8 w-75 border-transparent rounded-xl focus:outline-none"
-              type="text"
+              type="password"
               placeholder="confirm password. . ."
               onChange={(e) => setConfirmPassword(e.target.value)}
             />

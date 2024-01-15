@@ -8,9 +8,9 @@ const Home = () => {
         <NavBar />
         <div className="pl-40 text-white flex-grow flex">
           <div className="flex flex-col mt-auto">
-            <div className="pb-2 text-6xl">flashcard maker</div>
+            <div className="pb-2 text-6xl font-custom">flashcard maker</div>
             <div className="pl-8 p-2 text-3xl">transofj;s card into card yayyay</div>
-            <div className="flex flex-row pb-40">
+            <div className="flex flex-row pb-20">
               <button className="text-black h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">
                 sign up for free
               </button>

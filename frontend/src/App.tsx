@@ -5,7 +5,9 @@ import SignUp from './pages/SignUp'
 import Home from './pages/Home'
 import About from './pages/About'
 import SignIn from './pages/SignIn'
-import EditFlashcard from './pages/EditFlashcard'
+import FlashcardSets from './pages/FlashcardSets'
+import CreateFlashcards from './pages/CreateFlashcards'
+import MyAccount from './pages/MyAccount'
 
 function App() {
 
@@ -16,7 +18,9 @@ function App() {
         <Route path = '/signup' element = { <SignUp/>}/>
         <Route path = '/about' element = { <About/> }/>
         <Route path = '/signin' element = { <SignIn/> }/>
-        <Route path = '/flashcards' element = { <EditFlashcard/>}/>
+        <Route path = '/flashcards' element = { <FlashcardSets/>}/>
+        <Route path = '/editflashcards' element = { <CreateFlashcards/> }/>
+        <Route path = '/myaccount' element = { <MyAccount/> }/>
       </Routes>
     </>
   )

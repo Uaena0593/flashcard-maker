@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
 const NavBar = () => {
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
+    setAuthenticated(isUserAuthenticated);
+  }, []);
+
   return (
     <>
       <nav className="p-4 bg-black">
@@ -9,7 +17,7 @@ const NavBar = () => {
             <span className="text-white text-xl">chen</span>
           </div>
           <div className="flex items-center space-x-12">
-            <input type ='text' placeholder = "find flashcards. . . " className = "bg-gray-200 pl-5 h-10 w-96 border-transparent rounded-full focus:outline-none"/>
+            <input type='text' placeholder="find flashcards. . . " className="bg-gray-200 pl-5 h-10 w-96 border-transparent rounded-full focus:outline-none" />
             <Link to="/" className="text-white no-underline text-xl">
               home
             </Link>
@@ -17,10 +25,10 @@ const NavBar = () => {
               about
             </Link>
             <Link
-              to="/signup"
+              to={authenticated ? "/myaccount" : "/signup"}
               className="text-white text-lg px-6 py-2 no-underline rounded-full bg-black border border-white cursor-pointer"
             >
-              sign up
+              {authenticated ? "my account" : "sign up"}
             </Link>
           </div>
         </div>
