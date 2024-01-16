@@ -79,25 +79,35 @@ app.post("/signup", async(req, res) => {
     }
 });
 
-app.post("/createflashcardset", async (req, res) => {
-    e.preventDefault()
-    try {
+app.get("/returnflashcardsets", async (req, res) => {
+    try{
         const user = await collection.findOne({ authentication: true });
         if (user) {
-            const newFlashcardSet = { flashcardSetsSchema: [] };
-            await collection.updateOne(
-                { _id: user._id },
-                { $push: { setsFlashcards: newFlashcardSet } }
-            );
-            res.json("flashcardsetcreated");
-        } else {
-            res.json("notauthenticated");
+            const flashcardSets = user.setsFlashcards;
+            res.json({ flashcardSets });
         }
     } catch (error) {
-        console.error('error creating flashcard set:', error);
-        res.json("error");
+        console.log(error)
     }
-});
+})
+app.post("/createflashcardset", async (req, res) => {
+    try {
+      const user = await collection.findOne({ authentication: true });
+      if (user) {
+        const newFlashcardSet = { name: "untitled", flashcards: [] };
+        await collection.updateOne(
+          { _id: user._id },
+          { $push: { setsFlashcards: newFlashcardSet } }
+        );
+        res.json("flashcardsetcreated");
+      } else {
+        res.json("notauthenticated");
+      }
+    } catch (error) {
+      console.error('error creating flashcard set:', error);
+      res.json("error");
+    }
+  });
 
 
 

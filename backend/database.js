@@ -18,24 +18,30 @@ const flashcardSchema = new mongoose.Schema({
         required: true
     }
 });
+
 const flashcardSetSchema = new mongoose.Schema({
-    flashcardSetsSchema : [flashcardSchema]
-})
+    name: {
+        type: String,
+        required: true
+    },
+    flashcards: [flashcardSchema]
+});
+
 const newSchema = new mongoose.Schema({
-    username:{
+    username: {
         type: String,
-        required:true
+        required: true
     },
-    password:{
+    password: {
         type: String,
-        required:true
+        required: true
     },
-    authentication : {
-        type : Boolean,
+    authentication: {
+        type: Boolean,
         default: false
     },
     setsFlashcards: [flashcardSetSchema]
-})
+});
 
 
 const collection = mongoose.model("collection", newSchema)
