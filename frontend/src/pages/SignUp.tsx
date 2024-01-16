@@ -16,15 +16,15 @@ const SignUp = () => {
         username,
         password,
       });
-
-      if (response.data === "exist") {
+      console.log(response.data)
+      if (response.data === "signupsuccess") {
+        alert("User created successfully");
+        localStorage.setItem('authenticated', 'authorized');
+        history("/flashcards", { state: { id: username } });
+      } else if (response.data === "alreadyexist") {
         alert("User already exists");
       } else if (password !== confirmPassword) {
         alert("Passwords do not match");
-      } else if (response.data === "notexist") {
-        alert("User created successfully"); // You can customize this message
-        localStorage.setItem('authenticated', 'authorized');
-        history("/flashcards", { state: { id: username } });
       } else {
         alert("Error occurred");
       }

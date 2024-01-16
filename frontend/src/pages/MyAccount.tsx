@@ -1,20 +1,27 @@
-import React from 'react'
+
 import { Link } from 'react-router-dom'
+import axios from 'axios';
 
 const MyAccount = () => {
-  const handleSubmit = () => {
-    localStorage.setItem('authenticated', '');
-  }
+  const handleSignOut = async () => {
+    try {
+      await axios.post("http://localhost:3001/signout");
+      localStorage.setItem('authenticated', '');
+    } catch (error) {
+      console.error('Error during sign out:', error);
+    }
+  };
+
   return (
     <>
-        <Link
-              to={'/'} onClick = { handleSubmit }
-              className="text-white text-lg px-6 py-2 no-underline rounded-full bg-black border border-white cursor-pointer"
-            >
-             sign out
-        </Link>
+      <Link
+        to={'/'} onClick={handleSignOut}
+        className="text-white text-lg px-6 py-2 no-underline rounded-full bg-black border border-white cursor-pointer"
+      >
+        Sign Out
+      </Link>
     </>
-  )
-}
+  );
+};
 
 export default MyAccount

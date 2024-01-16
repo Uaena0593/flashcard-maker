@@ -19,7 +19,7 @@ const flashcardSchema = new mongoose.Schema({
     }
 });
 const flashcardSetSchema = new mongoose.Schema({
-    flashcardSets : [flashcardSchema]
+    flashcardSetsSchema : [flashcardSchema]
 })
 const newSchema = new mongoose.Schema({
     username:{
@@ -30,10 +30,15 @@ const newSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    authentication : {
+        type : Boolean,
+        default: false
+    },
     setsFlashcards: [flashcardSetSchema]
 })
 
 
 const collection = mongoose.model("collection", newSchema)
+
 
 export default collection
