@@ -79,6 +79,51 @@ app.post("/signup", async(req, res) => {
     }
 });
 
+app.get("/createflashcards/:id", async (req, res) => {
+    const flashcardSetId = req.params.id;
+    try {
+      const user = await collection.findOne({ "setsFlashcards._id": flashcardSetId });
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      const flashcardSet = user.setsFlashcards.find(set => set._id.toString() === flashcardSetId);
+      if (!flashcardSet) {
+        return res.status(404).json({ error: 'Flashcard set not found' });
+      }
+      res.json({ name: flashcardSet.name });
+    } catch (error) {
+      console.error('Error fetching flashcard set title:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+
+
+  app.put("/updateflashcardset/:id", async (req, res) => {
+    const flashcardSetId = req.params.id;
+    const { name } = req.body;
+    try {
+        const user = await collection.findOne({ "setsFlashcards._id": flashcardSetId });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        const flashcardSet = user.setsFlashcards.find(set => set._id.toString() === flashcardSetId);
+        console.log(flashcardSet)
+
+        await collection.findOneAndUpdate(
+            { "setsFlashcards._id": flashcardSetId },
+            { $set: { "setsFlashcards.$.name": name } },
+            { returnDocument: 'after' }
+        );
+        if (!flashcardSet) {
+            return res.status(404).json({ error: 'Flashcard set not found' });
+        }
+        res.json({ message: 'Flashcard set title updated successfully' });
+    } catch (error) {
+        console.error('Error updating flashcard set title:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 app.get("/returnflashcardsets", async (req, res) => {
     try{
         const user = await collection.findOne({ authentication: true });
@@ -90,6 +135,7 @@ app.get("/returnflashcardsets", async (req, res) => {
         console.log(error)
     }
 })
+
 app.post("/createflashcardset", async (req, res) => {
     try {
       const user = await collection.findOne({ authentication: true });
@@ -108,6 +154,35 @@ app.post("/createflashcardset", async (req, res) => {
       res.json("error");
     }
   });
+  app.post("/createflashcard/:id", async (req, res) => {
+    const flashcardSetId = req.params.id;
+    const { question, answer } = req.body;
+
+    try {
+        const user = await collection.findOne({ "setsFlashcards._id": flashcardSetId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const flashcardSetIndex = user.setsFlashcards.findIndex(set => set._id.toString() === flashcardSetId);
+
+        if (flashcardSetIndex === -1) {
+            return res.status(404).json({ error: 'Flashcard set not found' });
+        }
+
+        // Add the new flashcard to the flashcards array
+        user.setsFlashcards[flashcardSetIndex].flashcards.push({ question, answer });
+
+        // Save the updated user document
+        const updatedUser = await user.save();
+
+        res.json({ message: 'Flashcard created successfully', updatedUser });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 
@@ -126,8 +201,6 @@ app.post("/createcard", async (req, res) => {
         console.log("error")
     }
 });
-
-
 
 
 app.get("/checkauth", async (req, res) => {

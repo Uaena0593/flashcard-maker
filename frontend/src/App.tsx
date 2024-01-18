@@ -21,6 +21,7 @@ function App() {
         <Route path = '/flashcards' element = { <FlashcardSets/>}/>
         <Route path = '/createflashcards' element = { <CreateFlashcards/> }/>
         <Route path = '/myaccount' element = { <MyAccount/> }/>
+        <Route path = '/createflashcards/:flashcardSetId' element = { <CreateFlashcards/> }/>
       </Routes>
     </>
   )

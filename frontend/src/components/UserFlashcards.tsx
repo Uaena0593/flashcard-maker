@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const UserFlashcards = () => {
   const [flashcardSets, setFlashcardSets] = useState([]);
+  const history = useNavigate();
 
   useEffect(() => {
     async function getFlashcardSets() {
@@ -18,17 +20,26 @@ const UserFlashcards = () => {
     getFlashcardSets();
   }, []);
   
-  const clickFlashcardSet = () => {
-    
-  }
+  const clickFlashcardSet = (flashcardSetId) => {
+    console.log(flashcardSetId)
+    history(`/createflashcards/${flashcardSetId}`);
+  };
 
   return (
     <div>
       <ul>
-        {flashcardSets.map((flashcardSets, index) => (
-          <button key={index} onClick = { clickFlashcardSet } className="text-black h-20 w-40 text-xl px-6 py-2 no-underline rounded-lg bg-white border border-black cursor-pointer flex items-center justify-center">{ flashcardSets.name }</button>
+        {flashcardSets.map((flashcardSet, index) => (
+          <button
+            key={index}
+            onClick={() => clickFlashcardSet(flashcardSet._id)}
+
+            className="text-black h-20 w-40 text-xl px-6 py-2 no-underline rounded-lg bg-white border border-black cursor-pointer flex items-center justify-center"
+          >
+            {flashcardSet.name}
+          </button>
         ))}
       </ul>
+
     </div>
   );
 };
