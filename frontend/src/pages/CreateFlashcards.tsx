@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 
 const CreateFlashcards = () => {
   const { flashcardSetId } = useParams();
@@ -56,6 +56,9 @@ const createFlashcard = async (e) => {
       console.log(error);
   }
 };
+const useFlashcards = () => {
+  history(`/useflashcards/${flashcardSetId}`);
+}
 
 
   return (
@@ -83,8 +86,9 @@ const createFlashcard = async (e) => {
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
           />
-          <button type="submit">Create Flashcard</button>
+          <button type="submit">create flashcard</button>
         </form>
+        <button onClick = { useFlashcards } className = "text-black mb-2 h-8 w-40 text-md px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">use flashcards </button>
       </div>
     </>
   );

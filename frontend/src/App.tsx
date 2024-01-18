@@ -8,6 +8,7 @@ import SignIn from './pages/SignIn'
 import FlashcardSets from './pages/FlashcardSets'
 import CreateFlashcards from './pages/CreateFlashcards'
 import MyAccount from './pages/MyAccount'
+import UseFlashcards from './pages/UseFlashcards'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route path = '/createflashcards' element = { <CreateFlashcards/> }/>
         <Route path = '/myaccount' element = { <MyAccount/> }/>
         <Route path = '/createflashcards/:flashcardSetId' element = { <CreateFlashcards/> }/>
+        <Route path = '/useflashcards/:flashcardSetId' element = { <UseFlashcards/> }/>
       </Routes>
     </>
   )
