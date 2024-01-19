@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const NavBar = () => {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
-    setAuthenticated(isUserAuthenticated);
+    async function render() {
+      try {
+      const response = await axios.get('http://localhost:3001/checkauth');
+      const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
+      setAuthenticated(response.data === 'authenticated' || isUserAuthenticated);
+      } catch (error) {
+        console.log('error')
+      }
+    }
+    render()
   }, []);
 
   return (

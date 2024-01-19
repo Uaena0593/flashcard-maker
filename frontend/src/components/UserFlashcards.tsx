@@ -26,21 +26,22 @@ const UserFlashcards = () => {
   };
 
   return (
-    <div>
-      <ul>
-        {flashcardSets.map((flashcardSet, index) => (
-          <button
-            key={index}
-            onClick={() => clickFlashcardSet(flashcardSet._id)}
+    <>
+      <div>
+        <ul className = 'flex ml-20'>
+          {flashcardSets.map((flashcardSet, index) => (
+            <button
+              key={index}
+              onClick={() => clickFlashcardSet(flashcardSet._id)}
 
-            className="text-black h-20 w-40 text-xl px-6 py-2 no-underline rounded-lg bg-white border border-black cursor-pointer flex items-center justify-center"
-          >
-            {flashcardSet.name}
-          </button>
-        ))}
-      </ul>
-
-    </div>
+              className="text-white m-2 h-20 w-40 text-xl px-6 py-2 no-underline rounded-lg bg-black border border-white cursor-pointer flex items-center justify-center"
+            >
+              {flashcardSet.name}
+            </button>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

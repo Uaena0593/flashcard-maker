@@ -10,13 +10,14 @@ const Home = () => {
         const response = await axios.get('http://localhost:3001/checkauth');
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
         setAuthenticated(response.data === 'authenticated' || isUserAuthenticated);
+        console.log(authenticated)
       } catch (error) {
         console.log(error);
       }
     }
 
     checkAuthentication();
-  }, [history]);
+  }, [authenticated]);
   return (
     <>
       <section className="bg-black min-h-screen flex flex-col">

@@ -54,12 +54,14 @@ app.post("/signin", async (req, res) => {
 
 
 app.post("/signup", async(req, res) => {
-    const { username, password } = req.body;
+    const { username, password, confirmPassword } = req.body;
 
     try {
         const check = await collection.findOne({ username: username });
         if (check) {
             res.json("alreadyexist");
+        } else if (password != confirmPassword) {
+            res.json('notmatch')
         } else {
             const data = {
                 username: username,

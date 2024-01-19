@@ -14,10 +14,10 @@ const CreateFlashcards = () => {
     async function fetchFlashcardSetTitle() {
       try {
         if (flashcardSetId) {
-          console.log('Flashcard Set ID:', flashcardSetId);
+          console.log('flashcard Set ID:', flashcardSetId);
           const response = await axios.get(`http://localhost:3001/createflashcards/${flashcardSetId}`);
           
-          console.log('Response:', response.data);
+          console.log('response:', response.data);
           setFlashcardSetTitle(response.data.name);
         }
       } catch (error) {
@@ -38,6 +38,7 @@ const CreateFlashcards = () => {
         await axios.put(`http://localhost:3001/updateflashcardset/${flashcardSetId}`, {
             name: flashcardSetTitle,
         });
+        alert("title has been saved")
     } catch (error) {
         console.log(error);
     }
@@ -63,32 +64,32 @@ const useFlashcards = () => {
 
   return (
     <>
-      <div className="w-80 h-96 py-2 bg-white rounded-xl flex flex-col justify-center items-center">
+      <div className="bg-white min-h-screen flex flex-col justify-center items-center">
         <input
           type="text"
           value={flashcardSetTitle}
           onChange={handleTitleChange}
-          className="bg-gray-200 mb-3 pl-4 h-8 w-75 border-transparent rounded-xl focus:outline-none"
+          className="bg-gray-200 mb-3 pl-4 h-12 w-80 text-2xl border-transparent rounded-xl focus:outline-none"
         />
-        <button onClick={saveTitleChanges} className="mb-3">save title changes</button>
+        <button onClick={saveTitleChanges} className="mb-3 text-black text-xl">save title changes</button>
         <form className="flex flex-col justify-center items-center" onSubmit={createFlashcard}>
           <input
-            className="bg-gray-200 mb-3 pl-4 h-8 w-75 border-transparent rounded-xl focus:outline-none"
+            className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
             type="text"
             placeholder="front..."
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
           />
           <input
-            className="bg-gray-200 mb-3 pl-4 h-8 w-75 border-transparent rounded-xl focus:outline-none"
+            className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
             type="text"
             placeholder="back"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
           />
-          <button type="submit">create flashcard</button>
+          <button type="submit" className = "text-black mb-2 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">create flashcard</button>
+          <button onClick = { useFlashcards } className = "text-white mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">use flashcards </button>
         </form>
-        <button onClick = { useFlashcards } className = "text-black mb-2 h-8 w-40 text-md px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">use flashcards </button>
       </div>
     </>
   );

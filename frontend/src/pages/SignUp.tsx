@@ -15,6 +15,7 @@ const SignUp = () => {
       const response = await axios.post("http://localhost:3001/signup", {
         username,
         password,
+        confirmPassword,
       });
       console.log(response.data)
       if (response.data === "signupsuccess") {
@@ -23,7 +24,7 @@ const SignUp = () => {
         history("/flashcards", { state: { id: username } });
       } else if (response.data === "alreadyexist") {
         alert("User already exists");
-      } else if (password !== confirmPassword) {
+      } else if (response.data === 'notmatch') {
         alert("Passwords do not match");
       } else {
         alert("Error occurred");
