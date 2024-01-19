@@ -6,10 +6,12 @@ import { Link } from "react-router-dom"
 import axios from 'axios'
 
 const FlashcardSets = () => {
+  const history = useNavigate()
   const location = useLocation()
   const createFlashcardSet = async (e) => {
     try {
       const response = await axios.post("http://localhost:3001/createflashcardset");
+      history(`/createflashcards/${response.data}`);
     } catch (error) {
       console.log(error)
     }
@@ -22,13 +24,12 @@ const FlashcardSets = () => {
         <div className="flex flex-row ml-16 mt-2">
           <UserFlashcards></UserFlashcards>
         </div>
-        <Link
-          to="/createflashcards"
+        <button
           onClick={createFlashcardSet}
-          className="text-center text-black mb-10 mr-20 h-12 w-40 text-md px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center absolute bottom-4 right-10 "
+          className="text-center text-black mb-10 mr-20 h-16 w-56 text-xl px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center absolute bottom-4 right-10 "
         >
           create flashcards
-        </Link>
+        </button>
       </section>
     </>
   );

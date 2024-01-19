@@ -28,7 +28,7 @@ const UserFlashcards = () => {
   return (
     <>
       <div>
-        <ul className = 'flex ml-20'>
+        <ul className = 'flex flex-wrap ml-20'>
           {flashcardSets.map((flashcardSet, index) => (
             <button
               key={index}

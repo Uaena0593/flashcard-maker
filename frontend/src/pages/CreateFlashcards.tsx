@@ -49,10 +49,13 @@ const createFlashcard = async (e) => {
   e.preventDefault();
 
   try {
-      await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
+      const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
           question,
           answer,
       });
+      if (question == "" || answer == "") {
+        alert("please fill out both ")
+      }
   } catch (error) {
       console.log(error);
   }

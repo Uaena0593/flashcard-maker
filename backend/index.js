@@ -61,7 +61,7 @@ app.post("/signup", async(req, res) => {
         if (check) {
             res.json("alreadyexist");
         } else if (password != confirmPassword) {
-            res.json('notmatch')
+            res.json('')
         } else {
             const data = {
                 username: username,
@@ -142,11 +142,15 @@ app.post("/createflashcardset", async (req, res) => {
       const user = await collection.findOne({ authentication: true });
       if (user) {
         const newFlashcardSet = { name: "untitled", flashcards: [] };
-        await collection.updateOne(
-          { _id: user._id },
-          { $push: { setsFlashcards: newFlashcardSet } }
-        );
-        res.json("flashcardsetcreated");
+        const result = await collection.updateOne(
+            { _id: user._id },
+            { $push: { setsFlashcards: newFlashcardSet } }
+          );
+      const index = user.setsFlashcards.length - 1;
+
+      const insertedId = user.setsFlashcards[index]._id;
+
+      res.json(insertedId)
       } else {
         res.json("notauthenticated");
       }
