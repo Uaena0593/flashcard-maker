@@ -4,7 +4,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 
 const CreateFlashcards = () => {
   const { flashcardSetId } = useParams();
-  
+  const [input, setInput] = useState('')
   const [flashcardSetTitle, setFlashcardSetTitle] = useState('');
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
@@ -16,7 +16,6 @@ const CreateFlashcards = () => {
         if (flashcardSetId) {
           console.log('flashcard Set ID:', flashcardSetId);
           const response = await axios.get(`http://localhost:3001/createflashcards/${flashcardSetId}`);
-          
           console.log('response:', response.data);
           setFlashcardSetTitle(response.data.name);
         }
@@ -48,22 +47,52 @@ const CreateFlashcards = () => {
 const createFlashcard = async (e) => {
   e.preventDefault();
 
+  if (!question || !answer) {
+    alert("Please provide both a question and an answer.");
+    return;
+  }
+
   try {
-      const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
-          question,
-          answer,
-      });
-      if (question == "" || answer == "") {
-        alert("please fill out both ")
-      }
+    const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
+      question,
+      answer,
+    });
+    alert("flashcard created successfully")
   } catch (error) {
-      console.log(error);
+    console.log(error);
   }
 };
+
 const useFlashcards = () => {
   history(`/useflashcards/${flashcardSetId}`);
 }
 
+const converterSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    console.log("converterSubmit has been tried");
+    const response = await axios.post('http://localhost:3001/cardConverter', {
+      input,
+    });
+    console.log(response.data);
+    const array = response.data;
+    console.log(array);
+
+    for (const item of array) {
+      const question = item.front;
+      const answer = item.back;
+      console.log(question)
+      const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
+        question,
+        answer,
+      });
+      console.log(answer)
+    }
+
+  } catch(error) {
+    console.error('Error:', error);
+  }
+};
 
   return (
     <>
@@ -92,6 +121,15 @@ const useFlashcards = () => {
           />
           <button type="submit" className = "text-black mb-2 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">create flashcard</button>
           <button onClick = { useFlashcards } className = "text-white mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">use flashcards </button>
+        </form>
+        <form className="flex flex-col justify-center items-center" onSubmit={ converterSubmit }>
+          <input className="bg-gray-200 mb-3 pl-4 h-40 w-80 border-transparent text-xl rounded-xl focus:outline-none"
+              type="text"
+              placeholder="converted stuff..."
+              value= {input }
+              onChange={(e) => setInput(e.target.value)}
+              />
+          <button type = 'submit' className = "text-white mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center"></button>
         </form>
       </div>
     </>

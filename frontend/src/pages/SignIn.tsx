@@ -41,9 +41,11 @@ const SignIn = () => {
       try {
         const response = await axios.get('http://localhost:3001/checkauth');
         console.log('har har har')
+        
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
+        
         setAuthenticated(response.data === 'authenticated' || isUserAuthenticated);
-        console.log(response.data)
+  
       } catch (error) {
         console.log(error);
       }
