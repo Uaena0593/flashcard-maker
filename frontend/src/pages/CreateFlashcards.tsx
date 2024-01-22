@@ -81,14 +81,13 @@ const converterSubmit = async (e) => {
     for (const item of array) {
       const question = item.front;
       const answer = item.back;
-      console.log(question)
+      console.log(question);
       const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
         question,
         answer,
       });
-      console.log(answer)
+      console.log(answer);
     }
-
   } catch(error) {
     console.error('Error:', error);
   }
