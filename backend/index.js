@@ -1,4 +1,4 @@
-require("dotenv").config()
+import env from 'dotenv'
 import mongoose from 'mongoose';
 import express from 'express';
 import session from "express-session"
@@ -12,13 +12,7 @@ const dbConnectionString = process.env.DB_CONNECTION_STRING;
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
-app.use(cors(
-    {    
-        origin : ["https://deploy-mern-1whq.vercel.app"],
-        methods: ["POST", "GET"],
-        credentials: true
-    }
-))
+app.use(cors())
 
 app.use(session({
     secret: 'harharhar',

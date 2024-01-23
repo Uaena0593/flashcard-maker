@@ -86,6 +86,7 @@ const converterSubmit = async (e) => {
         question,
         answer,
       });
+      if (response.data)
       console.log(answer);
     }
   } catch(error) {
