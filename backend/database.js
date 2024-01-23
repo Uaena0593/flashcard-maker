@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-mongoose.connect("mongodb://localhost:27017/flashcard-maker-signin")
+mongoose.connect("mongodb+srv://chenleejonathan:GGVwEludYHJ6LiND@cluster0.fmwhr6o.mongodb.net/?retryWrites=true&w=majority")
 .then(() => {
     console.log("mongodb connected");
 })

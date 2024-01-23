@@ -1,3 +1,4 @@
+require("dotenv").config()
 import mongoose from 'mongoose';
 import express from 'express';
 import session from "express-session"
@@ -6,10 +7,18 @@ import cors from 'cors';
 import collection from "./database.js"
 import converterAPI from './cohereapi.js';
 
+const dbConnectionString = process.env.DB_CONNECTION_STRING;
+
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
-app.use(cors())
+app.use(cors(
+    {    
+        origin : ["https://deploy-mern-1whq.vercel.app"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+))
 
 app.use(session({
     secret: 'harharhar',
@@ -137,6 +146,28 @@ app.get("/returnflashcardsets", async (req, res) => {
         console.log(error)
     }
 })
+
+app.get("/deleteflashcardset/:id", async (req, res) => {
+    try {
+        const flashcardSetId = req.params.id;
+
+        const user = await collection.findOneAndUpdate(
+            { "setsFlashcards._id": flashcardSetId },
+            { $pull: { setsFlashcards: { _id: flashcardSetId } } },
+            { new: true }
+        );
+
+        if (user) {
+            console.log("Flashcard set deleted:", flashcardSetId);
+            res.json({ success: true });
+        } else {
+            res.json({ success: false, message: "Flashcard set not found or unable to delete." });
+        }
+    } catch (error) {
+        console.error('Error deleting flashcard set:', error);
+        res.json({ success: false, message: "Error deleting flashcard set." });
+    }
+});
 
 app.post("/createflashcardset", async (req, res) => {
     try {

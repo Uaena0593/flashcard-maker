@@ -1,5 +1,3 @@
-// FlashcardSets.js
-
 import React from 'react';
 import NavBar from '../components/NavBar';
 import { useNavigate, useLocation } from 'react-router-dom';
