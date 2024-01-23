@@ -4,12 +4,7 @@ import session from "express-session"
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import collection from "./database.js"
-import { CohereClient } from "cohere-ai"
 import converterAPI from './cohereapi.js';
-
-const cohere = new CohereClient({
-    token: "bisFU3xxdGNMKdtG9PLFa58hODnaNUhdH4iXdJbZ",
-});
 
 const app = express();
 app.use(express.json())
@@ -58,7 +53,6 @@ app.post("/signin", async (req, res) => {
         res.json("error");
     }
 });
-
 
 app.post("/signup", async(req, res) => {
     const { username, password, confirmPassword } = req.body;
@@ -145,27 +139,34 @@ app.get("/returnflashcardsets", async (req, res) => {
 })
 
 app.post("/createflashcardset", async (req, res) => {
-    try {   
-      const user = await collection.findOne({ authentication: true });
-      if (user) {
-        const newFlashcardSet = { name: "untitled", flashcards: [] };
-        const result = await collection.updateOne(
-            { _id: user._id },
-            { $push: { setsFlashcards: newFlashcardSet } }
-          );
-      const index = user.setsFlashcards.length - 1;
+    try {
+        const user = await collection.findOneAndUpdate(
+            { authentication: true },
+            {
+                $push: {
+                    setsFlashcards: { name: "untitled", flashcards: [] }
+                }
+            },
+            { new: true }
+        );
 
-      const insertedId = user.setsFlashcards[index]._id;
+        if (user) {
+            const index = user.setsFlashcards.length - 1;
+            const insertedId = user.setsFlashcards[index]._id;
 
-      res.json(insertedId)
-      } else {
-        res.json("notauthenticated");
-      }
+            console.log("Flashcard set created:", insertedId);
+            res.json(insertedId);
+        } else {
+            res.json("notauthenticated");
+        }
     } catch (error) {
-      console.error('error creating flashcard set:', error);
-      res.json("error");
+        console.error('Error creating flashcard set:', error);
+        res.json("error");
     }
-  });
+});
+
+
+
 app.post("/createflashcard/:id", async (req, res) => {
 const flashcardSetId = req.params.id;
 const { question, answer } = req.body;
@@ -277,5 +278,5 @@ app.post("/signout", async (req, res) => {
 });
 
 app.listen(3001,() =>{
-    console.log("Listening on port 3001")
+    console.log("Listening on port 3001");
 });
