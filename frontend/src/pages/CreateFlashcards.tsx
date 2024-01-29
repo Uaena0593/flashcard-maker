@@ -96,14 +96,14 @@ const converterSubmit = async (e) => {
 
   return (
     <>
-      <div className="bg-white min-h-screen flex flex-col justify-center items-center">
+      <div className="bg-offwhite min-h-screen flex flex-col justify-center items-center">
         <input
           type="text"
           value={flashcardSetTitle}
           onChange={handleTitleChange}
-          className="bg-gray-200 mb-3 pl-4 h-12 w-80 text-2xl border-transparent rounded-xl focus:outline-none"
+          className="bg-gray-200 mb-1 pl-4 h-12 w-80 text-2xl border-transparent rounded-xl focus:outline-none"
         />
-        <button onClick={saveTitleChanges} className="mb-3 text-black text-xl">save title changes</button>
+        <button onClick={saveTitleChanges} className="mb-3 text-black text-lg">save title changes</button>
         <form className="flex flex-col justify-center items-center" onSubmit={createFlashcard}>
           <input
             className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
@@ -129,7 +129,7 @@ const converterSubmit = async (e) => {
               value= {input }
               onChange={(e) => setInput(e.target.value)}
               />
-          <button type = 'submit' className = "text-white mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center"></button>
+          <button type = 'submit' className = "text-offwhite mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">convert</button>
         </form>
       </div>
     </>

@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        offwhite: '#f2f2f2'
+      },
       fontFamily: {
         custom: ['Roboto Mono', 'sans-serif'],
       },
