@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import collection from "./database.js"
 import converterAPI from './cohereapi.js';
-
+env.config();
 const dbConnectionString = process.env.DB_CONNECTION_STRING;
 
 const app = express();
@@ -22,6 +22,10 @@ app.use(session({
 }));
 
 const PORT = process.env.PORT || 3001;
+
+app.get('/', (req, res) => {
+    res.send('Hello, World!');
+  });
 
 app.post("/signin", async (req, res) => {
     const { username, password } = req.body;
