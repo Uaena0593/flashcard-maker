@@ -145,6 +145,18 @@ app.get("/returnflashcardsets", async (req, res) => {
     }
 })
 
+app.get("/returnflashcards/:id", async (req, res) => {
+    const flashcardsId = req.params.id;
+    try {
+        const user = await collection.findOne({ "setsFlashcards._id": flashcardsId });
+        const flashcardSet = user.setsFlashcards.find(set => set._id.toString() === flashcardsId);
+        res.json(flashcardSet)
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 app.get("/deleteflashcardset/:id", async (req, res) => {
     try {
         const flashcardSetId = req.params.id;

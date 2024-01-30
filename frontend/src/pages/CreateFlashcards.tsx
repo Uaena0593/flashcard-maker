@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import UserIndividualFlashcards from '../components/UserIndividualFlashcards';
 
 const CreateFlashcards = () => {
   const { flashcardSetId } = useParams();
@@ -96,43 +97,49 @@ const converterSubmit = async (e) => {
 
   return (
     <>
-      <div className="bg-offwhite min-h-screen flex flex-col justify-center items-center">
-        <input
-          type="text"
-          value={flashcardSetTitle}
-          onChange={handleTitleChange}
-          className="bg-gray-200 mb-1 pl-4 h-12 w-80 text-2xl border-transparent rounded-xl focus:outline-none"
-        />
-        <button onClick={saveTitleChanges} className="mb-3 text-black text-lg">save title changes</button>
-        <form className="flex flex-col justify-center items-center" onSubmit={createFlashcard}>
+    <div className=" flex flex-row bg-offwhite min-h-screen justify-content-evenly">
+        <div className="flex flex-col justify-center items-center">
           <input
-            className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
             type="text"
-            placeholder="front..."
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
+            value={flashcardSetTitle}
+            onChange={handleTitleChange}
+            className="bg-gray-200 mb-1 pl-4 h-12 w-80 text-2xl border-transparent rounded-xl focus:outline-none"
           />
-          <input
-            className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
-            type="text"
-            placeholder="back"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-          />
-          <button type="submit" className = "text-black mb-2 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">create flashcard</button>
-          <button onClick = { useFlashcards } className = "text-white mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">use flashcards </button>
-        </form>
-        <form className="flex flex-col justify-center items-center" onSubmit={ converterSubmit }>
-          <input className="bg-gray-200 mb-3 pl-4 h-40 w-80 border-transparent text-xl rounded-xl focus:outline-none"
+          <button onClick={saveTitleChanges} className="mb-3 text-black text-lg">save title changes</button>
+          <form className="flex flex-col justify-center items-center" onSubmit={createFlashcard}>
+            <input
+              className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
               type="text"
-              placeholder="converted stuff..."
-              value= {input }
-              onChange={(e) => setInput(e.target.value)}
-              />
-          <button type = 'submit' className = "text-offwhite mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">convert</button>
-        </form>
+              placeholder="front..."
+              value={question}
+              onChange={(e) => setQuestion(e.target.value)}
+            />
+            <input
+              className="bg-gray-200 mb-3 pl-4 h-12 w-60 border-transparent text-xl rounded-xl focus:outline-none"
+              type="text"
+              placeholder="back"
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+            />
+            <button type="submit" className = "text-black mb-2 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-white border border-black cursor-pointer flex items-center justify-center">create flashcard</button>
+            <button onClick = { useFlashcards } className = "text-white mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">use flashcards </button>
+          </form>
+          <form className="flex flex-col justify-center items-center" onSubmit={ converterSubmit }>
+            <input className="bg-gray-200 mb-3 pl-4 h-40 w-84 border-transparent text-xl rounded-xl focus:outline-none"
+                type="text"
+                placeholder="converted stuff..."
+                value= {input }
+                onChange={(e) => setInput(e.target.value)}
+                />
+            <button type = 'submit' className = "text-offwhite mb-12 h-12 w-60 text-xl px-6 py-2 no-underline rounded-full bg-black border border-black cursor-pointer flex items-center justify-center">convert</button>
+          </form>
+        </div>
+        <div>
+          <UserIndividualFlashcards></UserIndividualFlashcards>
+        </div>
       </div>
     </>
+    
   );
 };
 

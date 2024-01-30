@@ -4,7 +4,7 @@ interface Props {
   card : string[];
 }
 const IndividualFlashcards = ({ card } : Props) => {
-  const [flashcardText, setFlashcardText] = useState('')
+  const [flashcardText, setFlashcardText] = useState(card.question)
   const switchSide = () => {
     if (flashcardText == card.question) {
       setFlashcardText(card.answer)

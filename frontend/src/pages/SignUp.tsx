@@ -39,7 +39,7 @@ const SignUp = () => {
       <section className="bg-gray-200 min-h-screen">
         <div className="flex items-center justify-center h-screen">
           <form className="w-80 h-96 py-2 bg-white rounded-xl flex flex-col justify-center items-center" action = "POST">
-            <div className="text-3xl mb-4 pt-12">sign up</div>
+            <div className="text-3xl mb-3 pt-12">sign up</div>
             <input
               className="bg-gray-200 mb-3 pl-4 h-8 w-75 border-transparent rounded-xl focus:outline-none"
               type="text "
@@ -69,6 +69,12 @@ const SignUp = () => {
             >
               sign in
             </Link>
+            <div
+              className="text-red mb-1 h-8 w-64 text-xs px-6 py-2 no-underline bg-white cursor-pointer flex items-center justify-center"
+              
+            >
+              *do not use a your personal usernames or passwords as this information is not encrypted
+            </div>
           </form>
         </div>
       </section>

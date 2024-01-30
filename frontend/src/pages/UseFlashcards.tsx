@@ -9,7 +9,7 @@ const UseFlashcards = () => {
   const [flashcards, setFlashcards] = useState([]);
   const [usedFlashcardIndices, setUsedFlashcardIndices] = useState([]);
   const [currentFlashcardIndex, setCurrentFlashcardIndex] = useState(null);
-  const history = useNavigate()
+  const history = useNavigate();
 
   useEffect(() => {
     async function displayFlashcards() {
