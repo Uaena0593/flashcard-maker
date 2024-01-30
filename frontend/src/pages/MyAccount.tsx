@@ -6,7 +6,7 @@ const MyAccount = () => {
   const handleSignOut = async (e) => {
     e.preventDefault
     try {
-      await axios.post("http://localhost:3001/signout");
+      await axios.post("https://flashcard-maker-eight.vercel.app/signout");
       localStorage.setItem('authenticated', '');
     } catch (error) {
       console.error('Error during sign out:', error);

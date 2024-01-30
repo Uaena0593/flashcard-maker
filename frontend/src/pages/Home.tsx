@@ -7,7 +7,7 @@ const Home = () => {
   useEffect(() => {
     async function checkAuthentication() {
       try {
-        const response = await axios.get('http://localhost:3001/checkauth');
+        const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth');
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
         setAuthenticated(response.data === 'authenticated' || isUserAuthenticated);
         console.log(authenticated)

@@ -10,7 +10,7 @@ const UserIndividualFlashcards = () => {
           try {
             console.log(flashcardSetId)
             if (flashcardSetId) {
-                const response = await axios.get(`http://localhost:3001/returnflashcards/${flashcardSetId}`);
+                const response = await axios.get(`https://flashcard-maker-eight.vercel.app/returnflashcards/${flashcardSetId}`);
                 console.log("poggers")
                 console.log(response.data.flashcards);
                 setFlashcardArray(response.data.flashcards);

@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
 app.use(cors(
     {
-        origin: ["https://flashcard-maker-nc4e.vercel.app/"],
+        origin: ["https://flashcard-maker-nc4e.vercel.app"],
         methods: ["POST", "GET"],
         credentials: true
     }
