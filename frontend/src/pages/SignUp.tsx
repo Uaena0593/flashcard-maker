@@ -12,7 +12,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/signup", {
+      const response = await axios.post("https://flashcard-maker-eight.vercel.app/signup", {
         username,
         password,
         confirmPassword,

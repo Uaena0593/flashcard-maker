@@ -12,7 +12,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/signin', {
+      const response = await axios.post('https://flashcard-maker-eight.vercel.app/signin', {
         username,
         password,
       });
@@ -39,7 +39,7 @@ const SignIn = () => {
   useEffect(() => {
     async function checkAuthentication() {
       try {
-        const response = await axios.get('http://localhost:3001/checkauth');
+        const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth');
         console.log('har har har')
         
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
