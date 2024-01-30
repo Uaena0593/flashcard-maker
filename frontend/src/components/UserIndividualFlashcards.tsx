@@ -41,7 +41,6 @@ const UserIndividualFlashcards = () => {
                 delete
                 </button>
             </div>
-                
             ))}
             </ul>
         </div>
