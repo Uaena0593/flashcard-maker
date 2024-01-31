@@ -40,7 +40,8 @@ const SignIn = () => {
     async function checkAuthentication() {
       try {
         const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth');
-        if (response.data === 'authenticated') {
+        const response1 = await axios.get('https://flashcard-maker-eight.vercel.app/checkauthentication');
+        if (response1.data === "authenticated") {
           history("/");
         }
         console.log('har har har')

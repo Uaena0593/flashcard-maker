@@ -294,6 +294,23 @@ app.get("/checkauth", async (req, res) => {
         res.json("error");
     }
 });
+app.get("/checkauthentication", async (req, res) => {
+    try {
+        if (user) {
+            req.session.user = {
+                id: user._id,
+                username: user.username
+            };
+            console.log('User authenticated:', req.session.user);
+            res.json("authenticated");
+        } else {
+            res.json("unauthenticated")
+        }
+    } catch (error) {
+        console.error('Error during authentication check:', error);
+        res.json("error");
+    }
+});
 
 app.post("/cardConverter", async (req, res) => {
     try {

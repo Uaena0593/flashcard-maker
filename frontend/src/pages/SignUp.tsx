@@ -11,7 +11,7 @@ const SignUp = () => {
   useEffect(() => {
       async function checkAuthentication() {
         try {
-          const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth')
+          const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauthentication')
           if (response.data === "authenticated"){
             history("/");
           }
