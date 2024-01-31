@@ -40,6 +40,9 @@ const SignIn = () => {
     async function checkAuthentication() {
       try {
         const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth');
+        if (response.data === 'authenticated') {
+          history("/");
+        }
         console.log('har har har')
         
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';

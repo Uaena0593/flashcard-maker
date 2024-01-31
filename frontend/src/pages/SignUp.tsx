@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
@@ -8,6 +8,19 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("")
   const history = useNavigate()
 
+  useEffect(() => {
+      async function checkAuthentication() {
+        try {
+          const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth')
+          if (response.data === "authenticated"){
+            history("/");
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
+    checkAuthentication();
+    }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
