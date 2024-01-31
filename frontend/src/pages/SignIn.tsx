@@ -40,22 +40,33 @@ const SignIn = () => {
     async function checkAuthentication() {
       try {
         const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth');
-        const response1 = await axios.get('https://flashcard-maker-eight.vercel.app/checkauthentication');
-        if (response1.data === "authenticated") {
+        if (response.data === 'authenticated') {
           history("/");
         }
-        console.log('har har har')
+        console.log('har har har');
         
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
         
         setAuthenticated(response.data === 'authenticated' || isUserAuthenticated);
-  
+
       } catch (error) {
         console.log(error);
       }
     }
 
     checkAuthentication();
+
+    const handlePopstate = () => {
+      // Perform actions when the user presses the back button
+      console.log("Back button pressed");
+      // You can add more logic here if needed
+    };
+
+    window.addEventListener("popstate", handlePopstate);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
   }, [history]);
 
   return (

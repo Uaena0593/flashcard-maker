@@ -9,18 +9,30 @@ const SignUp = () => {
   const history = useNavigate()
 
   useEffect(() => {
-      async function checkAuthentication() {
-        try {
-          const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauthentication')
-          if (response.data === "authenticated"){
-            history("/");
-          }
-        } catch (error) {
-          console.log(error)
+    async function checkAuthentication() {
+      try {
+        const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauthentication');
+        if (response.data === 'authenticated') {
+          history('/');
         }
+      } catch (error) {
+        console.log(error);
       }
+    }
+
     checkAuthentication();
-    }, []);
+
+    const handlePopstate = () => {
+      console.log('Back button pressed');
+    };
+
+    window.addEventListener('popstate', handlePopstate);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopstate);
+    };
+  }, [history]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
