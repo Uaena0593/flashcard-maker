@@ -19,7 +19,6 @@ function App() {
         <Route path = '/explore' element = { <Explore/> }/>
         <Route path = '/signin' element = { <SignIn/> }/>
         <Route path = '/flashcards' element = { <FlashcardSets/>}/>
-        <Route path = '/createflashcards' element = { <CreateFlashcards/> }/>
         <Route path = '/myaccount' element = { <MyAccount/> }/>
         <Route path = '/createflashcards/:flashcardSetId' element = { <CreateFlashcards/> }/>
         <Route path = '/useflashcards/:flashcardSetId' element = { <UseFlashcards/> }/>

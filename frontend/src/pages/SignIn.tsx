@@ -12,7 +12,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://flashcard-maker-eight.vercel.app/signin', {
+      const response = await axios.post('http://localhost:3001/signin', {
         username,
         password,
       });
@@ -39,11 +39,13 @@ const SignIn = () => {
   useEffect(() => {
     async function checkAuthentication() {
       try {
-        const response = await axios.get('https://flashcard-maker-eight.vercel.app/checkauth');
-        if (response.data === 'authenticated') {
+        const response = await axios.get('http://localhost:3001/checkauth');
+        const response1 = await axios.get('http://localhost:3001/checkauthentication');
+        
+        if (response1.data === 'authenticated') {
+          console.log('harhar')
           history("/");
         }
-        console.log('har har har');
         
         const isUserAuthenticated = localStorage.getItem('authenticated') === 'authorized';
         
@@ -55,18 +57,6 @@ const SignIn = () => {
     }
 
     checkAuthentication();
-
-    const handlePopstate = () => {
-      // Perform actions when the user presses the back button
-      console.log("Back button pressed");
-      // You can add more logic here if needed
-    };
-
-    window.addEventListener("popstate", handlePopstate);
-
-    return () => {
-      window.removeEventListener("popstate", handlePopstate);
-    };
   }, [history]);
 
   return (

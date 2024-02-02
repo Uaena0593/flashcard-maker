@@ -14,7 +14,7 @@ const UseFlashcards = () => {
   useEffect(() => {
     async function displayFlashcards() {
       try {
-        const response = await axios.get(`https://flashcard-maker-eight.vercel.app/useflashcards/${flashcardSetId}`);
+        const response = await axios.get(`http://localhost:3001/useflashcards/${flashcardSetId}`);
         const flashcardArray = response.data.flashcards;
         setFlashcards(flashcardArray);
         setCurrentFlashcardIndex(generateRandomUnusedIndex(flashcardArray.length));

@@ -12,14 +12,16 @@ const dbConnectionString = process.env.DB_CONNECTION_STRING;
 const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended:true }))
-app.use(cors(
+
+/*app.use(cors(
     {
         origin: ["https://flashcard-maker-nc4e.vercel.app"],
         methods: ["POST", "GET"],
         credentials: true
     }
 ))
-
+*/
+app.use(cors())
 app.use(session({
     secret: 'harharhar',
     resave: false,
@@ -185,6 +187,30 @@ app.get("/deleteflashcardset/:id", async (req, res) => {
     }
 });
 
+app.post("/deleteindividualflashcard", async (req, res) => {
+    const { flashcardId, flashcardSetId } = req.body;
+
+    try {
+        console.log(flashcardId)
+        const user = await collection.findOneAndUpdate(
+            { "setsFlashcards._id": flashcardSetId },
+            { $pull: { "setsFlashcards.$.flashcards": { _id: flashcardId } } },
+            { new: true }
+        );
+
+        if (user) {
+            console.log("Individual flashcard deleted:", flashcardId);
+            res.json({ success: true });
+        } else {
+            res.json({ success: false, message: "Flashcard set not found or unable to delete flashcard." });
+        }
+    } catch (error) {
+        console.error('Error deleting flashcard:', error);
+        res.status(500).json({ success: false, message: "Error deleting flashcard." });
+    }
+});
+
+
 app.post("/createflashcardset", async (req, res) => {
     try {
         const user = await collection.findOneAndUpdate(
@@ -284,7 +310,6 @@ app.get("/checkauth", async (req, res) => {
                     username: user.username
                 };
                 console.log('User authenticated:', req.session.user);
-                res.json("authenticated");
             } else {
                 res.json("notauthenticated");
             }
@@ -296,13 +321,9 @@ app.get("/checkauth", async (req, res) => {
 });
 app.get("/checkauthentication", async (req, res) => {
     try {
+        const user = await collection.findOne({ authentication: true });
         if (user) {
-            req.session.user = {
-                id: user._id,
-                username: user.username
-            };
-            console.log('User authenticated:', req.session.user);
-            res.json("authenticated");
+            res.json('authenticated')
         } else {
             res.json("unauthenticated")
         }
@@ -311,6 +332,8 @@ app.get("/checkauthentication", async (req, res) => {
         res.json("error");
     }
 });
+
+
 
 app.post("/cardConverter", async (req, res) => {
     try {
