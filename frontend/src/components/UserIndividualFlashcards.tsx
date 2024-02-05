@@ -9,7 +9,7 @@ const UserIndividualFlashcards = () => {
         async function getFlashcards() {
           try {
             if (flashcardSetId) {
-                const response = await axios.get(`flashcard-maker-eight.vercel.app/returnflashcards/${flashcardSetId}`);
+                const response = await axios.get(`https://flashcard-maker-eight.vercel.app/returnflashcards/${flashcardSetId}`);
                 setFlashcardArray(response.data.flashcards);
             }
           } catch (error) {
@@ -22,7 +22,7 @@ const UserIndividualFlashcards = () => {
       const deleteFlashcardSet = async (flashcardId, flashcardSetId) =>{
         console.log(flashcardId)
         console.log(flashcardSetId)
-        const response = await axios.post(`flashcard-maker-eight.vercel.app/deleteindividualflashcard`, {
+        const response = await axios.post(`https://flashcard-maker-eight.vercel.app/deleteindividualflashcard`, {
             flashcardId,
             flashcardSetId
         });

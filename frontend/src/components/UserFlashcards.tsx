@@ -9,7 +9,7 @@ const UserFlashcards = () => {
   useEffect(() => {
     async function getFlashcardSets() {
       try {
-        const response = await axios.get('flashcard-maker-eight.vercel.app/returnflashcardsets');
+        const response = await axios.get('https://flashcard-maker-eight.vercel.app/returnflashcardsets');
         console.log(response.data.flashcardSets)
         setFlashcardSets(response.data.flashcardSets);
       } catch (error) {
@@ -27,7 +27,7 @@ const UserFlashcards = () => {
 
   const deleteFlashcardSet = async (flashcardSetId) => {
     try {
-      const response = await axios.get(`flashcard-maker-eight.vercel.app/deleteflashcardset/${flashcardSetId}`);
+      const response = await axios.get(`https://flashcard-maker-eight.vercel.app/deleteflashcardset/${flashcardSetId}`);
       setFlashcardSets((prevFlashcardSets) =>
       prevFlashcardSets.filter((set) => set._id !== flashcardSetId)
     );
