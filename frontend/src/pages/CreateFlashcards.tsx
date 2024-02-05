@@ -16,7 +16,7 @@ const CreateFlashcards = () => {
       try {
         if (flashcardSetId) {
           console.log('flashcard Set ID:', flashcardSetId);
-          const response = await axios.get(`http://localhost:3001/createflashcards/${flashcardSetId}`);
+          const response = await axios.get(`flashcard-maker-eight.vercel.app/createflashcards/${flashcardSetId}`);
           console.log('response:', response.data);
           setFlashcardSetTitle(response.data.name);
         }
@@ -35,7 +35,7 @@ const CreateFlashcards = () => {
   const saveTitleChanges = async () => {
     try {
         console.log(flashcardSetId);
-        await axios.put(`http://localhost:3001/updateflashcardset/${flashcardSetId}`, {
+        await axios.put(`flashcard-maker-eight.vercel.app/updateflashcardset/${flashcardSetId}`, {
             name: flashcardSetTitle,
         });
         alert("title has been saved")
@@ -54,7 +54,7 @@ const createFlashcard = async (e) => {
   }
 
   try {
-    const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
+    const response = await axios.post(`flashcard-maker-eight.vercel.app/createflashcard/${flashcardSetId}`, {
       question,
       answer,
     });
@@ -72,7 +72,7 @@ const converterSubmit = async (e) => {
   e.preventDefault();
   try {
     console.log("converterSubmit has been tried");
-    const response = await axios.post('http://localhost:3001/cardConverter', {
+    const response = await axios.post('flashcard-maker-eight.vercel.app/cardConverter', {
       input,
     });
     console.log(response.data);
@@ -83,7 +83,7 @@ const converterSubmit = async (e) => {
       const question = item.front;
       const answer = item.back;
       console.log(question);
-      const response = await axios.post(`http://localhost:3001/createflashcard/${flashcardSetId}`, {
+      const response = await axios.post(`flashcard-maker-eight.vercel.app/createflashcard/${flashcardSetId}`, {
         question,
         answer,
       });

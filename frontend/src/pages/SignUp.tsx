@@ -11,8 +11,8 @@ const SignUp = () => {
   useEffect(() => {
     async function checkAuthentication() {
       try {
-        const response = await axios.get('http://localhost:3001/checkauthentication');
-        const response1 = await axios.get('http://localhost:3001/checkauthentication');
+        const response = await axios.get('flashcard-maker-eight.vercel.app/checkauthentication');
+        const response1 = await axios.get('flashcard-maker-eight.vercel.app/checkauthentication');
         
         if (response1.data === 'authenticated') {
           console.log('harhar')
@@ -30,7 +30,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/signup", {
+      const response = await axios.post("flashcard-maker-eight.vercel.app/signup", {
         username,
         password,
         confirmPassword,

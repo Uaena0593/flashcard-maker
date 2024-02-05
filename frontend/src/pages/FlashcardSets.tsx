@@ -10,7 +10,7 @@ const FlashcardSets = () => {
 
   const createFlashcardSet = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/createflashcardset', {
+      const response = await axios.post('flashcard-maker-eight.vercel.app/createflashcardset', {
       });
 
       console.log(response.data);
