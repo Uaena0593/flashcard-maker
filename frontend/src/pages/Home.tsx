@@ -25,7 +25,7 @@ const Home = () => {
         <div className="pl-40 text-white flex-grow flex">
           <div className="flex flex-col mt-auto">
             <div className="pb-2 text-6xl font-custom">flashcard maker</div>
-            <div className="pl-8 p-2 text-3xl">transofj;s card into card yayyay</div>
+            <div className="pl-8 p-2 text-3xl">transform documents into flashcards</div>
             <div className="flex flex-row pb-20">
               <Link
               to={authenticated ? "/flashcards" : "/signup"}
